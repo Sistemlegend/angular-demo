@@ -6,17 +6,34 @@
     <title>Hello World</title>
 
     <!-- bower:css -->
+    <link rel="stylesheet" href="../bower_components/angular-material/angular-material.css"/>
     <!-- endbower -->
 </head>
 
-<body>
+<body ng-app="store">
 <!-- bower:js -->
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../bower_components/angular-animate/angular-animate.js"></script>
+<script src="../bower_components/angular-aria/angular-aria.js"></script>
+<script src="../bower_components/hammerjs/hammer.js"></script>
+<script src="../bower_components/angular-material/angular-material.js"></script>
 <!-- endbower -->
 
+
 <!-- inject:js -->
+<script src="scripts/app.js"></script>
 <!-- endinject -->
 
-<h1>Hello World !</h1>
+<md-toolbar>
+    <h2 class="md-toolbar-tools">
+        <span>Gem Store</span>
+    </h2>
+</md-toolbar>
+
+<p>
+    Did you know that 2 + 2 = {{2 + 2}}?
+</p>
+
 </body>
 
 </html>

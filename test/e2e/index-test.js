@@ -5,13 +5,10 @@ describe('WebApp', function () {
         browser.get('http://localhost:9000');
 
         it('should show the page', function () {
-            expect(element.all(by.css('h2')).
-                first().getText()).toBe("Gem Store");
-        });
-
-        it('should show the page', function () {
-            expect(element.all(by.css('p')).
-                first().getText()).toBe("Did you know that 2 + 2 = 4 ?");
+            expect(element.all(by.css('h3')).
+                first().getText()).toBe("Azurite");
+            expect(element.all(by.css('h4')).
+                first().getText()).toBe("$ 2.95");
         });
     });
 });

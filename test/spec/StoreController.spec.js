@@ -1,7 +1,20 @@
 describe('StoreController', function () {
 
-    it('Should be true', function () {
-        expect(true).toBeTruthy();
+    var storeController;
+
+    beforeEach(module('store'));
+
+    beforeEach(inject(function ($controller) {
+        storeController = $controller('StoreController');
+    }));
+
+
+    it('Should be defined', function () {
+        expect(storeController).toBeDefined();
+    });
+
+    it('product should be defined', function () {
+        expect(storeController.product).toBeDefined();
     });
 
 });

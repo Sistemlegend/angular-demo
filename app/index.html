@@ -29,16 +29,21 @@
     </h2>
 </md-toolbar>
 
-<p>
-    Did you know that 2 + 2 = {{2 + 2}} ?
-</p>
+<md-item ng-controller='StoreController as store'>
+    <md-item-content>
+        <div class="md-tile-left">
+            <img ng-src="{{store.product.image}}" class="face">
+        </div>
+        <div class="md-tile-content">
+            <h3>{{store.product.name}}</h3>
+            <h4>$ {{store.product.price}}</h4>
+        </div>
+    </md-item-content>
+</md-item>
 
 </body>
 
 </html>
-
-
-
 
 
 

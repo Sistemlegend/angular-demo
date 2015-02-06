@@ -4,7 +4,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var server;
 
-gulp.task('connect', ['bower-import', 'import'], function () {
+gulp.task('connect', ['import'], function () {
     var serveStatic = require('serve-static');
     var serveIndex = require('serve-index');
     var app = require('connect')()
@@ -27,37 +27,44 @@ gulp.task('serve', ['connect', 'watch'], function () {
     require('opn')('http://localhost:9000');
 });
 
-// inject bower components
-gulp.task('bower-import', function () {
-    var wiredep = require('wiredep').stream;
+gulp.task('karma-imports', function(){
+   var mainBowerFiles = require('main-bower-files');
+   var sources = gulp.src(['./app/scripts/*.js'], {read: false}).pipe($.angularFilesort());
 
-    gulp.src('app/*.html')
-        .pipe(wiredep())
-        .pipe(gulp.dest('app'));
-
-    gulp.src('karma.conf.js')
-        .pipe(wiredep())
-        .pipe(gulp.dest('./'));
-});
-
-// inject custom scripts
-gulp.task('import', function () {
-    var target = gulp.src('./app/index.html');
-    // It's not necessary to read the files (will speed up things), we're only after their paths:
-    var sources = gulp.src(['./app/scripts/*.js', './app/**/*.css'], {read: false}).pipe($.angularFilesort());
-
-
-    gulp.src('./karma.conf.js')
-        .pipe($.inject(gulp.src(['./app/scripts/**/*.js'], {read: false}), {
+    return gulp.src('karma.conf.js')
+        .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.js'}), {read: false}), {
+            starttag: '// bower:js',
+            endtag: '// endbower',
+            transform: function (filepath, file, i, length) {
+                return '\'' + filepath.substr(1) + '\',';
+            }
+        }))
+        .pipe($.inject(sources, {
             starttag: '// inject:js',
             endtag: '// endinject',
             transform: function (filepath, file, i, length) {
                 return '\'' + filepath.substr(1) + '\',';
             }
         }))
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest('./')); 
+});
 
-    return target.pipe($.inject(sources, {relative: true}))
+gulp.task('import', ['index-imports', 'karma-imports']);
+
+gulp.task('index-imports', function(){
+    var mainBowerFiles = require('main-bower-files');
+    var sources = gulp.src(['./app/scripts/*.js'], {read: false}).pipe($.angularFilesort());
+
+    return gulp.src('app/index.html')
+        .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.js'}), {read: false}), {
+            starttag: '<!-- bower:js -->',
+            endtag: '<!-- endbower -->'
+        }))
+        .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.css'}), {read: false}), {
+            starttag: '<!-- bower:css -->',
+            endtag: '<!-- endbower -->'
+        }))
+        .pipe($.inject(sources, {relative: true}))
         .pipe(gulp.dest('./app'));
 });
 
@@ -75,7 +82,7 @@ gulp.task('watch', ['connect'], function () {
         'app/images/**/*'
     ]).on('change', $.livereload.changed);
 
-    gulp.watch('bower.json', ['bower-import']);
+    gulp.watch('bower.json', ['bower-js', 'import']);
 
     gulpwatch('app/**/*.js', batch(function () {
         gulp.start('import');
@@ -108,5 +115,3 @@ gulp.task('test-unit', function () {
 });
 
 gulp.task('test', ['test-unit', 'test-e2e']);
-
-

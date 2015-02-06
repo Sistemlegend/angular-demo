@@ -14,7 +14,6 @@
     "connect-livereload": "~0.5.2",
     "http": "0.0.0",
     "opn": "~1.0.1",
-    "wiredep": "~2.2.2",
     "connect": "~3.3.4",
     "del": "~1.1.1",
     "gulp-inject": "~1.1.1",

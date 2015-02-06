@@ -65,6 +65,11 @@ gulp.task('index-imports', function(){
             endtag: '<!-- endbower -->'
         }))
         .pipe($.inject(sources, {relative: true}))
+        .pipe($.inject(gulp.src('app/styles/**/*.css', {read:false}), {
+            starttag: '<!-- inject:css -->',
+            endtag: '<!-- endinject -->',
+            relative: true
+        }))
         .pipe(gulp.dest('./app'));
 });
 
@@ -77,14 +82,14 @@ gulp.task('watch', ['connect'], function () {
     // watch for changes
     gulp.watch([
         'app/*.html',
-        '.tmp/styles/**/*.css',
+        'app/styles/**/*.css',
         'app/scripts/**/*.js',
         'app/images/**/*'
     ]).on('change', $.livereload.changed);
 
     gulp.watch('bower.json', ['bower-js', 'import']);
 
-    gulpwatch('app/**/*.js', batch(function () {
+    gulpwatch(['app/**/*.js','app/styles/**/*.css'], batch(function () {
         gulp.start('import');
     }));
 });

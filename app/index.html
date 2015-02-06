@@ -8,6 +8,10 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
     <!-- endbower -->
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endinject -->
 </head>
 
 <body ng-app="store">
@@ -17,7 +21,6 @@
 <script src="/bower_components/angular-aria/angular-aria.js"></script>
 <script src="/bower_components/angular-material/angular-material.js"></script>
 <!-- endbower -->
-
 
 <!-- inject:js -->
 <script src="scripts/app.js"></script>
@@ -29,19 +32,28 @@
     </h2>
 </md-toolbar>
 
-<md-item ng-controller='StoreController as store'>
-    <md-item-content ng-repeat="product in store.products" ng-hide="product.soldOut">
-        <div class="md-tile-left">
-            <img ng-src="{{product.image}}" class="face">
+<md-list ng-controller='StoreController as store'>
+    <md-item ng-repeat="product in store.products" ng-hide="product.soldOut">
+        <md-item-content>
+            <div class="md-tile-left">
+                <img ng-src="{{product.image}}" class="face">
+            </div>
+            <div class="md-tile-content">
+                <h3>{{product.name}}</h3>
+                <h4>{{product.price | currency}}</h4>
+            </div>
+            <div class="md-tile-right">
+                <md-button ng-show="product.canPurchase" class="md-primary md-raised">Add to Cart</md-button>
+            </div>
+        </md-item-content>
+        <div layout="row" layout-align="center center">
+            <md-button class="md-hue-1">Description</md-button>
+            <md-button class="md-hue-1">Specifications</md-button>
+            <md-button class="md-hue-1">Reviews</md-button>
         </div>
-        <div class="md-tile-content">
-            <h3>{{product.name}}</h3>
-            <h4>{{product.price | currency}}</h4>
-            <md-button ng-show="product.canPurchase" class="md-primary md-raised">Add to Cart</md-button>
-        </div>
-    </md-item-content>
-</md-item>
-
+        <md-divider></md-divider>
+    </md-item>
+</md-list>
 </body>
 
 </html>

@@ -3,3 +3,7 @@ div .md-button {
     margin: 1em;
     line-height: 25px;
 }
+
+.md-whiteframe-z1 {
+    padding: 1em;
+}

@@ -1,11 +1,13 @@
 (function () {
     var app = angular.module('store', ['ngMaterial']);
 
-    var gem = {name: 'Azurite', image: '/images/azurite.png', price: 2.95};
+    var gems = [
+        {name: 'Ruby', image: '/images/ruby.png', price: 102.95},
+        {name: 'Diamond', image: '/images/diamond.png', price: 200},
+        {name: 'Emerald', image: '/images/emerald.png', price: 150.5}
+    ];
 
     app.controller('StoreController', function () {
-
-        this.product = gem;
 
     });
 })();

@@ -14,8 +14,8 @@ describe('StoreController', function () {
     });
 
     it('product should be defined', function () {
-        expect(storeController.product).toBeDefined();
+        expect(storeController.products).toBeDefined();
+        expect(angular.isArray(storeController.products)).toBeTruthy();
     });
 
 });
-

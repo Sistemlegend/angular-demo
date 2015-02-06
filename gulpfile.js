@@ -2,8 +2,9 @@
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var server;
 
-gulp.task('connect', ['wiredep', 'import'], function () {
+gulp.task('connect', ['import'], function () {
     var serveStatic = require('serve-static');
     var serveIndex = require('serve-index');
     var app = require('connect')()
@@ -15,7 +16,7 @@ gulp.task('connect', ['wiredep', 'import'], function () {
         .use('/bower_components', serveStatic('bower_components'))
         .use(serveIndex('app'));
 
-    require('http').createServer(app)
+    server = require('http').createServer(app)
         .listen(9000)
         .on('listening', function () {
             console.log('Started connect web server on http://localhost:9000');
@@ -26,22 +27,44 @@ gulp.task('serve', ['connect', 'watch'], function () {
     require('opn')('http://localhost:9000');
 });
 
-// inject bower components
-gulp.task('wiredep', function () {
-    var wiredep = require('wiredep').stream;
+gulp.task('karma-imports', function(){
+    var mainBowerFiles = require('main-bower-files');
+    var sources = gulp.src(['./app/scripts/*.js'], {read: false}).pipe($.angularFilesort());
 
-    gulp.src('app/*.html')
-        .pipe(wiredep())
-        .pipe(gulp.dest('app'));
+    return gulp.src('karma.conf.js')
+        .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.js'}), {read: false}), {
+            starttag: '// bower:js',
+            endtag: '// endbower',
+            transform: function (filepath, file, i, length) {
+                return '\'' + filepath.substr(1) + '\',';
+            }
+        }))
+        .pipe($.inject(sources, {
+            starttag: '// inject:js',
+            endtag: '// endinject',
+            transform: function (filepath, file, i, length) {
+                return '\'' + filepath.substr(1) + '\',';
+            }
+        }))
+        .pipe(gulp.dest('./'));
 });
 
-// inject custom scripts
-gulp.task('import', function () {
-    var target = gulp.src('./app/index.html');
-    // It's not necessary to read the files (will speed up things), we're only after their paths:
-    var sources = gulp.src(['./app/scripts/*.js', './app/**/*.css'], {read: false});
+gulp.task('import', ['index-imports', 'karma-imports']);
 
-    return target.pipe($.inject(sources, {relative: true}))
+gulp.task('index-imports', function(){
+    var mainBowerFiles = require('main-bower-files');
+    var sources = gulp.src(['./app/scripts/*.js'], {read: false}).pipe($.angularFilesort());
+
+    return gulp.src('app/index.html')
+        .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.js'}), {read: false}), {
+            starttag: '<!-- bower:js -->',
+            endtag: '<!-- endbower -->'
+        }))
+        .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.css'}), {read: false}), {
+            starttag: '<!-- bower:css -->',
+            endtag: '<!-- endbower -->'
+        }))
+        .pipe($.inject(sources, {relative: true}))
         .pipe(gulp.dest('./app'));
 });
 
@@ -59,11 +82,9 @@ gulp.task('watch', ['connect'], function () {
         'app/images/**/*'
     ]).on('change', $.livereload.changed);
 
-    gulp.watch('bower.json', ['wiredep']);
+    gulp.watch('bower.json', ['bower-js', 'import']);
 
     gulpwatch('app/**/*.js', batch(function () {
         gulp.start('import');
     }));
 });
-
-

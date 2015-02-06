@@ -3,7 +3,7 @@
 
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Hello World</title>
+    <title>Gem Store</title>
 
     <!-- bower:css -->
     <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
@@ -30,13 +30,14 @@
 </md-toolbar>
 
 <md-item ng-controller='StoreController as store'>
-    <md-item-content>
+    <md-item-content ng-repeat="product in store.products" ng-hide="product.soldOut">
         <div class="md-tile-left">
-            <img ng-src="{{store.product.image}}" class="face">
+            <img ng-src="{{product.image}}" class="face">
         </div>
         <div class="md-tile-content">
-            <h3>{{store.product.name}}</h3>
-            <h4>$ {{store.product.price}}</h4>
+            <h3>{{product.name}}</h3>
+            <h4>{{product.price | currency}}</h4>
+            <md-button ng-show="product.canPurchase" class="md-primary md-raised">Add to Cart</md-button>
         </div>
     </md-item-content>
 </md-item>

@@ -6,9 +6,13 @@ describe('WebApp', function () {
 
         it('should show the page', function () {
             expect(element.all(by.css('h3')).
-                first().getText()).toBe("Azurite");
+                last().getText()).toBe("Emerald");
             expect(element.all(by.css('h4')).
-                first().getText()).toBe("$ 2.95");
+                last().getText()).toBe("$150.50");
+        });
+
+        it('should show three products', function () {
+            expect(element.all(by.repeater('product in store.products')).count()).toEqual(3);
         });
     });
 });

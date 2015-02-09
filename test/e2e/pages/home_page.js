@@ -31,6 +31,15 @@ var HomePage = function HomePage() {
         return productTab.all(by.css('[ng-click="panelCtrl.selectTab(2)"]')).first();
     };
 
+    this.reviewButton = function (productTab) {
+        return productTab.all(by.css('[ng-click="panelCtrl.selectTab(3)"]')).first();
+    };
+
+    this.getReviews = function(productTab) {
+        var reviewTab = productTab.all(by.css('[ng-show="panelCtrl.isSelected(3)"]')).first();
+        return reviewTab.all(by.repeater('review in product.reviews'));
+    };
+
 };
 
 module.exports = HomePage;

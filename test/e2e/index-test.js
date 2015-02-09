@@ -35,5 +35,12 @@ describe('WebApp', function () {
             expect(page.additionalInfo(whiteFrame)).toBe('None yet');
         });
 
+        it('should show ruby reviews', function() {
+            var ruby = page.productList().first();
+            var reviewButton = page.reviewButton(ruby);
+            reviewButton.click();
+            expect(page.getReviews(ruby).count()).toBe(2);
+        });
+
     });
 });

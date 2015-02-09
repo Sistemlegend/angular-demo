@@ -34,7 +34,7 @@
 
 <md-content layout="column" layout-fill>
     <md-list ng-controller='StoreController as store'>
-        <md-item ng-repeat="product in store.products" ng-hide="product.soldOut">
+        <md-item ng-repeat="product in store.products" ng-hide="product.soldOut" ng-controller="PanelController as panelCtrl">
             <md-item-content>
                 <div class="md-tile-left">
                     <img ng-src="{{product.image}}" class="face">
@@ -47,29 +47,29 @@
                     <md-button ng-show="product.canPurchase" class="md-primary md-raised">Add to Cart</md-button>
                 </div>
             </md-item-content>
-            <div layout="row" layout-align="center center" ng-init="tab = 1">
-                <md-button class="md-hue-1" ng-click="tab = 1" ng-class="{'md-accent md-raised' : tab === 1}">
+            <div layout="row" layout-align="center center">
+                <md-button class="md-hue-1" ng-click="panelCtrl.selectTab(1)" ng-class="{'md-accent md-raised' : panelCtrl.isSelected(1)}">
                     Description
                 </md-button>
-                <md-button class="md-hue-1" ng-click="tab = 2" ng-class="{'md-accent md-raised' : tab === 2}">
+                <md-button class="md-hue-1" ng-click="panelCtrl.selectTab(2)" ng-class="{'md-accent md-raised' : panelCtrl.isSelected(2)}">
                     Specifications
                 </md-button>
-                <md-button class="md-hue-1" ng-click="tab = 3" ng-class="{'md-accent md-raised' : tab === 3}">Reviews
+                <md-button class="md-hue-1" ng-click="panelCtrl.selectTab(3)" ng-class="{'md-accent md-raised' : panelCtrl.isSelected(3)}">Reviews
                 </md-button>
             </div>
             <md-divider></md-divider>
             <md-whiteframe layout="column" layout-align="left" class="md-whiteframe-z1" layout
-                           layout-align="center center" ng-show="tab === 1">
+                           layout-align="center center" ng-show="panelCtrl.isSelected(1)">
                 <h4>Description</h4>
                 <p>{{product.description}}</p>
             </md-whiteframe>
             <md-whiteframe layout="column" layout-align="left" class="md-whiteframe-z1" layout
-                           layout-align="center center" ng-show="tab === 2">
+                           layout-align="center center" ng-show="panelCtrl.isSelected(2)">
                 <h4>Specifications</h4>
                 <p>{{product.specifications}}</p>
             </md-whiteframe>
             <md-whiteframe layout="column" layout-align="left" class="md-whiteframe-z1" layout
-                           layout-align="center center" ng-show="tab === 3">
+                           layout-align="center center" ng-show="panelCtrl.isSelected(3)">
                 <h4>Reviews</h4>
                 <p>{{product.reviews}}</p>
             </md-whiteframe>

@@ -16,11 +16,11 @@ var HomePage = function HomePage() {
     };
 
     this.descriptionWhiteFrame = function (productTab) {
-        return productTab.all(by.css('[ng-show="tab === 1"]')).first();
+        return productTab.all(by.css('[ng-show="panelCtrl.isSelected(1)"]')).first();
     };
 
     this.specWhiteFrame = function (productTab) {
-        return productTab.all(by.css('[ng-show="tab === 2"]')).first();
+        return productTab.all(by.css('[ng-show="panelCtrl.isSelected(2)"]')).first();
     };
 
     this.additionalInfo = function (whiteFrame) {
@@ -28,7 +28,7 @@ var HomePage = function HomePage() {
     };
 
     this.specButton = function (productTab) {
-        return productTab.all(by.css('[ng-click="tab = 2"]')).first();
+        return productTab.all(by.css('[ng-click="panelCtrl.selectTab(2)"]')).first();
     };
 
 };

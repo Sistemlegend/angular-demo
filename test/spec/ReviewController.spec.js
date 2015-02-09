@@ -19,8 +19,12 @@ describe('ReviewController', function () {
 
     it('should add review to product', function() {
         var product = {reviews: []};
+        reviewController.review.stars = 2;
+
         reviewController.addReview(product);
+
         expect(product.reviews.length).toBe(1);
+        expect(angular.equals({},reviewController.review)).toBeTruthy();
     });
 
 });

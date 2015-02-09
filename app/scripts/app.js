@@ -8,9 +8,20 @@
             price: 102.95,
             description: 'The reddest ruby in the World!',
             specifications: 'None yet',
-            reviews: 'None yet',
             canPurchase: true,
-            soldOut: false
+            soldOut: false,
+            reviews: [
+                {
+                    stars: 5,
+                    body: 'I love this product!',
+                    author: 'pigna@esteco.com'
+                },
+                {
+                    stars: 1,
+                    body: 'This product sucks.',
+                    author: 'miotto@esteco.com'
+                }
+            ]
         },
         {
             name: 'Diamond',
@@ -18,9 +29,15 @@
             price: 200,
             description: 'Diamonds are girls best friends.',
             specifications: 'None yet',
-            reviews: 'None yet',
             canPurchase: false,
-            soldOut: false
+            soldOut: false,
+            reviews: [
+                {
+                    stars: 5,
+                    body: 'Cannot live without diamonds!',
+                    author: 'ricco@esteco.com'
+                }
+            ]
         },
         {
             name: 'Emerald',
@@ -28,9 +45,20 @@
             price: 150.5,
             description: 'Holy crap on a cracker, this emerald is ginormous!',
             specifications: 'None yet',
-            reviews: 'None yet',
             canPurchase: true,
-            soldOut: false
+            soldOut: false,
+            reviews: [
+                {
+                    stars: 3,
+                    body: 'Meh...',
+                    author: 'segatto@esteco.com'
+                },
+                {
+                    stars: 2,
+                    body: 'It\'s tiny!',
+                    author: 'piove@esteco.com'
+                }
+            ]
         }
     ];
 

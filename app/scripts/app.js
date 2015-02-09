@@ -39,4 +39,8 @@
         this.products = gems;
 
     });
+
+    app.controller('PanelController', function() {
+
+    });
 })();

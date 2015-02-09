@@ -87,24 +87,24 @@
                             <cite>by: {{review.author}}</cite>
                         </blockquote>
                     </div>
-                    <form flex="50">
+                    <form flex="50" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewCtrl.addReview(product)">
                         <b>Submit a review</b>
-                        <md-slider flex md-discrete step="1" min="1" max="5" ng-model="review.stars"></md-slider>
+                        <md-slider flex md-discrete step="1" min="1" max="5" ng-model="reviewCtrl.review.stars"></md-slider>
                         <md-input-container>
                             <label>Review</label>
-                            <textarea ng-model="review.body"></textarea>
+                            <textarea ng-model="reviewCtrl.review.body"></textarea>
                         </md-input-container>
                         <md-input-container>
                             <label>by:</label>
-                            <input type="email" ng-model="review.author">
+                            <input type="email" ng-model="reviewCtrl.review.author">
                         </md-input-container>
                         <md-button class="md-primary md-hue-1">Submit</md-button>
                         <md-divider></md-divider>
                         <blockquote>
-                            <b>Stars: {{review.stars}}</b> 
-                            {{review.body}}
+                            <b>Stars: {{reviewCtrl.review.stars}}</b> 
+                            {{reviewCtrl.review.body}}
                             <br>
-                            <cite>by: {{review.author}}</cite>
+                            <cite>by: {{reviewCtrl.review.author}}</cite>
                         </blockquote>
                     </form>
                 </div>

@@ -28,8 +28,8 @@ gulp.task('serve', ['connect', 'watch'], function () {
 });
 
 gulp.task('karma-imports', function(){
-   var mainBowerFiles = require('main-bower-files');
-   var sources = gulp.src(['./app/scripts/*.js'], {read: false}).pipe($.angularFilesort());
+    var mainBowerFiles = require('main-bower-files');
+    var sources = gulp.src(['./app/scripts/**/*.js'], {read: false}).pipe($.angularFilesort());
 
     return gulp.src('karma.conf.js')
         .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.js'}), {read: false}), {
@@ -46,14 +46,14 @@ gulp.task('karma-imports', function(){
                 return '\'' + filepath.substr(1) + '\',';
             }
         }))
-        .pipe(gulp.dest('./')); 
+        .pipe(gulp.dest('./'));
 });
 
 gulp.task('import', ['index-imports', 'karma-imports']);
 
 gulp.task('index-imports', function(){
     var mainBowerFiles = require('main-bower-files');
-    var sources = gulp.src(['./app/scripts/*.js'], {read: false}).pipe($.angularFilesort());
+    var sources = gulp.src(['./app/scripts/**/*.js'], {read: true}).pipe($.angularFilesort());
 
     return gulp.src('app/index.html')
         .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.js'}), {read: false}), {

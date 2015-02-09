@@ -1,0 +1,32 @@
+<div layout="row" layout-align="space-around center">
+    <div layout="column" flex="50">
+        <blockquote ng-repeat="review in product.reviews">
+            <b>Stars: {{review.stars}}</b> 
+            {{review.body}}
+            <br>
+            <cite>by: {{review.author}}</cite>
+        </blockquote>
+    </div>
+    <form name="reviewForm" flex="50" ng-controller="ReviewController as reviewCtrl"
+          ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
+        <b>Submit a review</b>
+        <md-slider flex md-discrete step="1" min="1" max="5" ng-model="reviewCtrl.review.stars"
+                   required></md-slider>
+        <md-input-container>
+            <label>Review</label>
+            <textarea ng-model="reviewCtrl.review.body" required></textarea>
+        </md-input-container>
+        <md-input-container>
+            <label>by:</label>
+            <input type="email" ng-model="reviewCtrl.review.author" required>
+        </md-input-container>
+        <md-button class="md-primary md-hue-1">Submit</md-button>
+        <md-divider></md-divider>
+        <blockquote>
+            <b>Stars: {{reviewCtrl.review.stars}}</b> 
+            {{reviewCtrl.review.body}}
+            <br>
+            <cite>by: {{reviewCtrl.review.author}}</cite>
+        </blockquote>
+    </form>
+</div>

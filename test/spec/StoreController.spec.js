@@ -1,21 +1,34 @@
 describe('StoreController', function () {
 
-    var storeController;
+    var $rootScope;
+    var storeController, deferredData;
 
-    beforeEach(module('store'));
+    beforeEach(module('productControllers'));
 
-    beforeEach(inject(function ($controller) {
-        storeController = $controller('StoreController');
+    beforeEach(module(function ($provide) {
+        $provide.service('ProductResource', function ($q) {
+            this.query = function () {
+                deferredData = $q.defer();
+                deferredData.resolve([{}, {}]);
+                return deferredData.promise;
+            };
+        });
     }));
 
+    beforeEach(inject(function ($controller, _$rootScope_) {
+        $rootScope = _$rootScope_;
+        storeController = $controller('StoreController');
+    }));
 
     it('Should be defined', function () {
         expect(storeController).toBeDefined();
     });
 
-    it('product should be defined', function () {
+    it('products should be defined', function () {
         expect(storeController.products).toBeDefined();
         expect(angular.isArray(storeController.products)).toBeTruthy();
+        $rootScope.$digest();
+        expect(storeController.products.length).toBe(2);
     });
 
 });

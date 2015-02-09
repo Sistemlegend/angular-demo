@@ -1,6 +1,6 @@
 (function () {
 
-    var app = angular.module('productDirectives', []);
+    var app = angular.module('productDirectives', ['productControllers']);
 
     app.directive('productData', function() {
         return {
@@ -19,17 +19,7 @@
             scope: {
                 product: '='
             },
-            controller: function() {
-                var tab = 1;
-
-                this.selectTab = function(value) {
-                    tab = value;
-                };
-
-                this.isSelected = function(value) {
-                    return tab == value;
-                };
-            },
+            controller: 'PanelController',
             controllerAs: 'panelCtrl'
         };
     });
@@ -52,15 +42,7 @@
             scope: {
                 product: '='
             },
-            controller: function() {
-                this.review = {};
-                this.product;
-
-                this.addReview = function() {
-                    this.product.reviews.push(this.review);
-                    this.review = {};
-                };
-            },
+            controller: 'ReviewController',
             controllerAs: 'reviewCtrl',
             bindToController: true
         };

@@ -2,14 +2,10 @@ describe('PanelController', function () {
 
     var panelController;
 
-    beforeEach(module('store'));
-    beforeEach(module('templates'));
+    beforeEach(module('productControllers'));
 
-    beforeEach(inject(function ($compile, $rootScope) {
-        $rootScope.product = {};
-        var element = $compile('<product-panels product=product></product-panels>')($rootScope);
-        $rootScope.$digest();
-        panelController = element.controller('productPanels');
+    beforeEach(inject(function ($controller) {
+        panelController = $controller('PanelController');
     }));
 
     it('Should be defined', function () {

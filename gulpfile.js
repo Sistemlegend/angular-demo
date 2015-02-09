@@ -29,7 +29,7 @@ gulp.task('serve', ['connect', 'watch'], function () {
 
 gulp.task('karma-imports', function(){
    var mainBowerFiles = require('main-bower-files');
-   var sources = gulp.src(['./app/scripts/*.js'], {read: false}).pipe($.angularFilesort());
+   var sources = gulp.src(['./app/scripts/**/*.js'], {read: false}).pipe($.angularFilesort());
 
     return gulp.src('karma.conf.js')
         .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.js'}), {read: false}), {

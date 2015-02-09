@@ -15,6 +15,8 @@ module.exports = function (config) {
             'bower_components/angular-mocks/angular-mocks.js',
 
             // inject:js
+            'app/scripts/products/directives.js',
+            'app/scripts/products/controllers.js',
             'app/scripts/app.js',
             // endinject
 

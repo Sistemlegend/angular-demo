@@ -1,17 +1,11 @@
 describe('ReviewController', function () {
 
-    var $rootScope;
     var reviewController;
 
-    beforeEach(module('store'));
-    beforeEach(module('templates'));
+    beforeEach(module('productControllers'));
 
-    beforeEach(inject(function ($compile, _$rootScope_) {
-        $rootScope = _$rootScope_;
-        $rootScope.product = {reviews: []};
-        var element = $compile('<review-form product=product></review-form>')($rootScope);
-        $rootScope.$digest();
-        reviewController = element.controller('reviewForm');
+    beforeEach(inject(function ($controller) {
+        reviewController = $controller('ReviewController');
     }));
 
     it('Should be defined', function () {
@@ -24,10 +18,11 @@ describe('ReviewController', function () {
 
     it('should add review to product', function() {
         reviewController.review.stars = 2;
+        reviewController.product = {reviews: []};
 
         reviewController.addReview();
 
-        expect($rootScope.product.reviews.length).toBe(1);
+        expect(reviewController.product.reviews.length).toBe(1);
         expect(angular.equals({},reviewController.review)).toBeTruthy();
     });
 

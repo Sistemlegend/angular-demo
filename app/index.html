@@ -36,18 +36,7 @@
     <md-list ng-controller='StoreController as store'>
         <md-item ng-repeat="product in store.products" ng-hide="product.soldOut"
                  ng-controller="PanelController as panelCtrl">
-            <md-item-content>
-                <div class="md-tile-left">
-                    <img ng-src="{{product.image}}" class="face">
-                </div>
-                <div class="md-tile-content">
-                    <h3>{{product.name}}</h3>
-                    <h4>{{product.price | currency}}</h4>
-                </div>
-                <div class="md-tile-right">
-                    <md-button ng-show="product.canPurchase" class="md-primary md-raised">Add to Cart</md-button>
-                </div>
-            </md-item-content>
+            <product-data></product-data>
             <div layout="row" layout-align="center center">
                 <md-button class="md-hue-1" ng-click="panelCtrl.selectTab(1)"
                            ng-class="{'md-accent md-raised' : panelCtrl.isSelected(1)}">

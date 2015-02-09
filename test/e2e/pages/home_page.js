@@ -7,10 +7,6 @@ var HomePage = function HomePage() {
         return element.all(by.repeater('product in store.products'))
     };
 
-    this.productTab = function (element, selector) {
-        return element.all(by.css(selector)).first();
-    };
-
     this.title = function (productTab) {
         return productTab.all(by.css('h3')).first().getText();
     };
@@ -21,19 +17,19 @@ var HomePage = function HomePage() {
 
     this.descriptionWhiteFrame = function (productTab) {
         return productTab.all(by.css('[ng-show="tab === 1"]')).first();
-    }
+    };
 
     this.specWhiteFrame = function (productTab) {
         return productTab.all(by.css('[ng-show="tab === 2"]')).first();
-    }
+    };
 
-    this.additionalInfo=function(whiteFrame){
+    this.additionalInfo = function (whiteFrame) {
         return whiteFrame.all(by.css('p')).first().getText();
-    }
+    };
 
-    this.specButton=function(productTab){
+    this.specButton = function (productTab) {
         return productTab.all(by.css('[ng-click="tab = 2"]')).first();
-    }
+    };
 
 };
 

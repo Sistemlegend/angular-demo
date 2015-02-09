@@ -19,7 +19,7 @@ describe('WebApp', function () {
             expect(page.price(ruby)).toBe('$102.95');
         });
 
-        it('should show ruby additionaInfo', function() {
+        it('should show ruby additionalInfo', function() {
             var ruby = page.productList().first();
             var whiteFrame = page.descriptionWhiteFrame(ruby);
             expect(whiteFrame.isDisplayed()).toBeTruthy();

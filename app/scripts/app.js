@@ -68,20 +68,6 @@
 
     });
 
-    app.controller('PanelController', function() {
-
-        var tab = 1;
-
-        this.selectTab = function(value) {
-            tab = value;
-        };
-
-        this.isSelected = function(value) {
-            return tab == value;
-        };
-
-    });
-
     app.controller('ReviewController', function() {
         this.review = {};
 
@@ -95,6 +81,25 @@
         return {
             restric: 'E',
             templateUrl: 'templates/product-data.html'
+        };
+    });
+
+    app.directive('productPanels', function() {
+        return {
+            restrict: 'E',
+            templateUrl: 'templates/product-panels.html',
+            controller: function() {
+                var tab = 1;
+
+                this.selectTab = function(value) {
+                    tab = value;
+                };
+
+                this.isSelected = function(value) {
+                    return tab == value;
+                };
+            },
+            controllerAs: 'panelCtrl'
         };
     });
 })();

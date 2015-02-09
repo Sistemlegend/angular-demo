@@ -34,70 +34,9 @@
 
 <md-content layout="column" layout-fill>
     <md-list ng-controller='StoreController as store'>
-        <md-item ng-repeat="product in store.products" ng-hide="product.soldOut"
-                 ng-controller="PanelController as panelCtrl">
+        <md-item ng-repeat="product in store.products" ng-hide="product.soldOut">
             <product-data></product-data>
-            <div layout="row" layout-align="center center">
-                <md-button class="md-hue-1" ng-click="panelCtrl.selectTab(1)"
-                           ng-class="{'md-accent md-raised' : panelCtrl.isSelected(1)}">
-                    Description
-                </md-button>
-                <md-button class="md-hue-1" ng-click="panelCtrl.selectTab(2)"
-                           ng-class="{'md-accent md-raised' : panelCtrl.isSelected(2)}">
-                    Specifications
-                </md-button>
-                <md-button class="md-hue-1" ng-click="panelCtrl.selectTab(3)"
-                           ng-class="{'md-accent md-raised' : panelCtrl.isSelected(3)}">Reviews
-                </md-button>
-            </div>
-            <md-divider></md-divider>
-            <md-whiteframe layout="column" layout-align="left" class="md-whiteframe-z1" layout
-                           layout-align="center center" ng-show="panelCtrl.isSelected(1)">
-                <h4>Description</h4>
-
-                <p>{{product.description}}</p>
-            </md-whiteframe>
-            <md-whiteframe layout="column" layout-align="left" class="md-whiteframe-z1" layout
-                           layout-align="center center" ng-show="panelCtrl.isSelected(2)">
-                <h4>Specifications</h4>
-
-                <p>{{product.specifications}}</p>
-            </md-whiteframe>
-            <md-whiteframe layout="column" layout-align="left" class="md-whiteframe-z1" layout
-                           layout-align="center center" ng-show="panelCtrl.isSelected(3)">
-                <h4>Reviews</h4>
-
-                <div layout="row" layout-align="space-around center">
-                    <div layout="column" flex="50">
-                        <blockquote ng-repeat="review in product.reviews">
-                            <b>Stars: {{review.stars}}</b> 
-                            {{review.body}}
-                            <br>
-                            <cite>by: {{review.author}}</cite>
-                        </blockquote>
-                    </div>
-                    <form name="reviewForm" flex="50" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
-                        <b>Submit a review</b>
-                        <md-slider flex md-discrete step="1" min="1" max="5" ng-model="reviewCtrl.review.stars" required></md-slider>
-                        <md-input-container>
-                            <label>Review</label>
-                            <textarea ng-model="reviewCtrl.review.body" required></textarea>
-                        </md-input-container>
-                        <md-input-container>
-                            <label>by:</label>
-                            <input type="email" ng-model="reviewCtrl.review.author" required>
-                        </md-input-container>
-                        <md-button class="md-primary md-hue-1">Submit</md-button>
-                        <md-divider></md-divider>
-                        <blockquote>
-                            <b>Stars: {{reviewCtrl.review.stars}}</b> 
-                            {{reviewCtrl.review.body}}
-                            <br>
-                            <cite>by: {{reviewCtrl.review.author}}</cite>
-                        </blockquote>
-                    </form>
-                </div>
-            </md-whiteframe>
+            <product-panels></product-panels>
         </md-item>
     </md-list>
 </md-content>

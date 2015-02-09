@@ -14,7 +14,7 @@ describe('ProductData', function () {
     it('should replace the element with the appropriate content', function () {
         $rootScope.product = {
             name: 'Ruby',
-            image: '/images/ruby.png',
+            image: '',
             price: 102.95
         };
         var element = $compile("<product-data></product-data>")($rootScope);

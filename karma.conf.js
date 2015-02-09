@@ -19,7 +19,10 @@ module.exports = function (config) {
             // endinject
 
             // Tests
-            'test/spec/**/*.js'
+            'test/spec/**/*.js',
+
+            // Templates
+            'app/templates/product-data.html'
         ],
 
         autoWatch: false,
@@ -32,10 +35,20 @@ module.exports = function (config) {
 
         plugins: [
             'karma-jasmine',
-            'karma-chrome-launcher'
+            'karma-chrome-launcher',
+            'karma-ng-html2js-preprocessor'
         ],
 
         reporters: ['progress'],
+
+        preprocessors: {
+            'app/templates/product-data.html': ['ng-html2js']
+        },
+
+        ngHtml2JsPreprocessor: {
+            stripPrefix: 'app/',
+            moduleName: 'templates'
+        },
 
         singleRun: true
 

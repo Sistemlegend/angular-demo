@@ -9,12 +9,14 @@ module.exports = function (config) {
             'bower_components/angular/angular.js',
             'bower_components/angular-animate/angular-animate.js',
             'bower_components/angular-aria/angular-aria.js',
+            'bower_components/angular-resource/angular-resource.js',
             'bower_components/angular-material/angular-material.js',
             // endbower
 
             'bower_components/angular-mocks/angular-mocks.js',
 
             // inject:js
+            'app/scripts/products/services.js',
             'app/scripts/products/directives.js',
             'app/scripts/products/controllers.js',
             'app/scripts/app.js',

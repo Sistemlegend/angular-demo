@@ -17,7 +17,7 @@ describe('ProductData', function () {
             image: '/images/ruby.png',
             price: 102.95
         };
-        var element = $compile("<product-data></product-data>")($rootScope);
+        var element = $compile("<product-data product=product></product-data>")($rootScope);
         $rootScope.$digest();
         expect(element.find('h3').text()).toBe($rootScope.product.name);
         expect(element.find('h4').text()).toBe('$' + $rootScope.product.price);

@@ -22,7 +22,7 @@ module.exports = function (config) {
             'test/spec/**/*.js',
 
             // Templates
-            'app/templates/product-data.html'
+            'app/templates/*.html'
         ],
 
         autoWatch: false,
@@ -42,7 +42,7 @@ module.exports = function (config) {
         reporters: ['progress'],
 
         preprocessors: {
-            'app/templates/product-data.html': ['ng-html2js']
+            'app/templates/*.html': ['ng-html2js']
         },
 
         ngHtml2JsPreprocessor: {

@@ -1,11 +1,11 @@
 <div layout="row" layout-align="space-around center">
     <div layout="column" flex="50">
         <blockquote ng-repeat="review in product.reviews">
-            <b>Stars: {{review.stars}}</b> 
+            <b>Stars: {{review.stars}}</b>
             {{review.body}}
             <br>
             <cite>by: {{review.author}}</cite>
         </blockquote>
     </div>
-    <review-form></review-form>
+    <review-form product=product></review-form>
 </div>

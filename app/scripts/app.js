@@ -71,7 +71,10 @@
     app.directive('productData', function() {
         return {
             restric: 'E',
-            templateUrl: 'templates/product-data.html'
+            templateUrl: 'templates/product-data.html',
+            scope: {
+                product: '='
+            }
         };
     });
 
@@ -79,6 +82,9 @@
         return {
             restrict: 'E',
             templateUrl: 'templates/product-panels.html',
+            scope: {
+                product: '='
+            },
             controller: function() {
                 var tab = 1;
 
@@ -97,7 +103,10 @@
     app.directive('productReviews', function() {
         return {
             restrict: 'E',
-            templateUrl: 'templates/product-reviews.html'
+            templateUrl: 'templates/product-reviews.html',
+            scope: {
+                product: '='
+            }
         };
     });
 
@@ -106,15 +115,20 @@
             restrict: 'E',
             templateUrl: 'templates/review-form.html',
             replace: true,
+            scope: {
+                product: '='
+            },
             controller: function() {
                 this.review = {};
+                this.product;
 
-                this.addReview = function(product) {
-                    product.reviews.push(this.review);
+                this.addReview = function() {
+                    this.product.reviews.push(this.review);
                     this.review = {};
                 };
             },
-            controllerAs: 'reviewCtrl'
+            controllerAs: 'reviewCtrl',
+            bindToController: true
         };
     });
 

@@ -4,6 +4,10 @@ div .md-button {
     line-height: 25px;
 }
 
+.md-tile-left {
+    margin: 1em;
+}
+
 .md-whiteframe-z1 {
     padding: 1em;
 }

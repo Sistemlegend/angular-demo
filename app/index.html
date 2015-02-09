@@ -77,12 +77,36 @@
             <md-whiteframe layout="column" layout-align="left" class="md-whiteframe-z1" layout
                            layout-align="center center" ng-show="panelCtrl.isSelected(3)">
                 <h4>Reviews</h4>
-                <blockquote ng-repeat="review in product.reviews">
-                    <b>Stars: {{review.stars}}</b> 
-                    {{review.body}}
-                    <br>
-                    <cite>by: {{review.author}}</cite>
-                </blockquote>
+
+                <div layout="row" layout-align="space-around center">
+                    <div layout="column" flex="50">
+                        <blockquote ng-repeat="review in product.reviews">
+                            <b>Stars: {{review.stars}}</b> 
+                            {{review.body}}
+                            <br>
+                            <cite>by: {{review.author}}</cite>
+                        </blockquote>
+                    </div>
+                    <form flex="50">
+                        <b>Submit a review</b>
+                        <md-slider flex md-discrete step="1" min="1" max="5"></md-slider>
+                        <md-input-container>
+                            <label>Review</label>
+                            <textarea></textarea>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>by:</label>
+                            <input type="email">
+                        </md-input-container>
+                        <md-button class="md-primary md-hue-1">Submit</md-button>
+                        <md-divider></md-divider>
+                        <blockquote>
+                            <b>Stars: </b> 
+                            <br>
+                            <cite>by: </cite>
+                        </blockquote>
+                    </form>
+                </div>
             </md-whiteframe>
         </md-item>
     </md-list>

@@ -1,0 +1,12 @@
+<md-item-content>
+    <div class="md-tile-left">
+        <img ng-src="{{product.image}}" class="face">
+    </div>
+    <div class="md-tile-content">
+        <h3>{{product.name}}</h3>
+        <h4>{{product.price | currency}}</h4>
+    </div>
+    <div class="md-tile-right">
+        <md-button ng-show="product.canPurchase" class="md-primary md-raised">Add to Cart</md-button>
+    </div>
+</md-item-content>

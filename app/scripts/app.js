@@ -90,4 +90,11 @@
             this.review = {};
         };
     });
+
+    app.directive('productData', function() {
+        return {
+            restric: 'E',
+            templateUrl: 'templates/product-data.html'
+        };
+    });
 })();

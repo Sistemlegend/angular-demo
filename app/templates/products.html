@@ -1,0 +1,8 @@
+<md-content layout="column" layout-fill>
+    <md-list ng-controller='StoreController as store'>
+        <md-item ng-repeat="product in store.products" ng-hide="product.soldOut">
+            <product-data product=product></product-data>
+            <product-panels product=product></product-panels>
+        </md-item>
+    </md-list>
+</md-content>

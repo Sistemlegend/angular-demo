@@ -20,6 +20,7 @@
 <script src="/bower_components/angular-animate/angular-animate.js"></script>
 <script src="/bower_components/angular-aria/angular-aria.js"></script>
 <script src="/bower_components/angular-resource/angular-resource.js"></script>
+<script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="/bower_components/angular-material/angular-material.js"></script>
 <!-- endbower -->
 
@@ -33,22 +34,17 @@
 
 <md-toolbar>
     <div class="md-toolbar-tools">
-        <h2 class="md-toolbar-tools">
-            <span>Gem Store</span>
+        <h2>
+            <a ui-sref="products">Gem Store</a>
         </h2>
         <span flex></span>
+        <md-button ui-sref="checkout">Checkout</md-button>
         <about-button></about-button>
     </div>
 </md-toolbar>
 
-<md-content layout="column" layout-fill>
-    <md-list ng-controller='StoreController as store'>
-        <md-item ng-repeat="product in store.products" ng-hide="product.soldOut">
-            <product-data product=product></product-data>
-            <product-panels product=product></product-panels>
-        </md-item>
-    </md-list>
-</md-content>
+<div ui-view></div>
+
 </body>
 
 </html>

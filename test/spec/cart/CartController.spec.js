@@ -1,4 +1,4 @@
-describe('CartController', function() {
+describe('CartController', function () {
 
     var cartController;
     var cartServiceMock;
@@ -6,8 +6,8 @@ describe('CartController', function() {
     beforeEach(module('cartControllers'));
 
     beforeEach(module(function ($provide) {
-        $provide.service('CartService', function() {
-            this.addToCart = jasmine.createSpy('addToCart');
+        $provide.service('CartService', function () {
+            this.getCart = jasmine.createSpy('getCart').and.returnValue([]);
         });
     }));
 
@@ -16,14 +16,14 @@ describe('CartController', function() {
         cartServiceMock = _CartService_;
     }));
 
-    it('should be defined', function() {
+    it('should be defined', function () {
         expect(cartController).toBeDefined();
     });
 
-    it('should call addToCart on service', function() {
-        cartController.product = {};
-        cartController.addToCart();
-        expect(cartServiceMock.addToCart).toHaveBeenCalledWith(cartController.product);
+    it('should call getCart on service', function () {
+        var cart = cartController.getCart();
+        expect(cart).toBeDefined();
+        expect(cartServiceMock.getCart).toHaveBeenCalled();
     });
 
 });

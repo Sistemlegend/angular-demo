@@ -5,12 +5,12 @@
     app.directive('addToCartButton', function() {
         return {
             restrict: 'E',
-            template: '<md-button ng-click="cartCtrl.addToCart()" ng-show="cartCtrl.product.canPurchase" class="md-primary md-raised">Add to Cart</md-button>',
+            template: '<md-button ng-click="addToCartCtrl.addToCart()" ng-show="addToCartCtrl.product.canPurchase" class="md-primary md-raised">Add to Cart</md-button>',
             scope: {
               product: '='
             },
-            controller: 'CartController',
-            controllerAs: 'cartCtrl',
+            controller: 'AddToCartController',
+            controllerAs: 'addToCartCtrl',
             bindToController: true
         };
     });

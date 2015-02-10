@@ -1,5 +1,5 @@
-<md-list ng-controller="CheckoutController as checkoutCtrl">
-    <md-item ng-repeat="cartItem in checkoutCtrl.getCart()">
+<md-list ng-controller="CartController as cartCtrl">
+    <md-item ng-repeat="cartItem in cartCtrl.getCart()">
         <md-item-content>
             <div class="md-tile-left">
                 <img ng-src="{{cartItem.product.image}}" class="face">

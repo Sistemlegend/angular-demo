@@ -17,9 +17,9 @@
                 url: '/',
                 templateUrl: 'templates/products.html'
             })
-            .state('checkout', {
-                url: '/checkout',
-                templateUrl: 'templates/checkout.html'
+            .state('cart', {
+                url: '/cart',
+                templateUrl: 'templates/cart.html'
             });
     });
 

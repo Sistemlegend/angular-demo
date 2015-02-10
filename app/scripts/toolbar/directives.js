@@ -10,11 +10,12 @@
                     $mdDialog.show({
                         templateUrl: 'templates/about-dialog.html',
                         targetEvent: ev,
-                        controller: function($scope) {
-                            $scope.hide = function() {
+                        controller: function() {
+                            this.hide = function() {
                                 $mdDialog.hide();
                             };
-                        }
+                        },
+                        controllerAs: 'dialogCtrl'
                     });
                 };
             },

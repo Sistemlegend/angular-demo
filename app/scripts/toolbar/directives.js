@@ -21,4 +21,12 @@
             controllerAs: 'aboutCtrl'
         };
     });
+
+    app.directive('aboutText', function() {
+        return {
+            restrict: 'E',
+            templateUrl: 'templates/about-text.html',
+            transclude: true
+        };
+    });
 })();

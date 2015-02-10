@@ -11,3 +11,7 @@ div .md-button {
 .md-whiteframe-z1 {
     padding: 1em;
 }
+
+.md-tile-right > h4 {
+    margin: 1em;
+}

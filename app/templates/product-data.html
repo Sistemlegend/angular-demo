@@ -7,6 +7,6 @@
         <h4>{{product.price | currency}}</h4>
     </div>
     <div class="md-tile-right">
-        <md-button ng-show="product.canPurchase" class="md-primary md-raised">Add to Cart</md-button>
+        <add-to-cart-button product=product></add-to-cart-button>
     </div>
 </md-item-content>

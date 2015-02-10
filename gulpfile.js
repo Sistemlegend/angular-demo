@@ -116,7 +116,7 @@ gulp.task('test-unit', function () {
     return gulp.src([])
         .pipe(karma({
             configFile: 'karma.conf.js',
-            action: 'run'
+            action: 'watch'
         }));
 });
 

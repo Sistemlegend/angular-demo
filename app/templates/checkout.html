@@ -1,1 +1,16 @@
-<p>Welcome to the checkout page!</p>
+<md-list ng-controller="CheckoutController as checkoutCtrl">
+    <md-item ng-repeat="cartItem in checkoutCtrl.getCart()">
+        <md-item-content>
+            <div class="md-tile-left">
+                <img ng-src="{{cartItem.product.image}}" class="face">
+            </div>
+            <div class="md-tile-content">
+                <h3>{{cartItem.quantity}} x {{cartItem.product.name}}</h3>
+                <h4>{{cartItem.product.price | currency}} each</h4>
+            </div>
+            <div class="md-tile-right">
+                <h4>{{cartItem.quantity * cartItem.product.price | currency}}</h4>
+            </div>
+        </md-item-content>
+    </md-item>
+</md-list>

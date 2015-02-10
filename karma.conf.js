@@ -21,6 +21,10 @@ module.exports = function (config) {
             'app/scripts/products/services.js',
             'app/scripts/products/directives.js',
             'app/scripts/products/controllers.js',
+            'app/scripts/checkout/controllers.js',
+            'app/scripts/cart/services.js',
+            'app/scripts/cart/directives.js',
+            'app/scripts/cart/controllers.js',
             'app/scripts/app.js',
             // endinject
 

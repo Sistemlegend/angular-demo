@@ -6,7 +6,9 @@
         'productServices',
         'productControllers',
         'productDirectives',
-        'toolbar'
+        'toolbar',
+        'cartDirectives',
+        'checkoutControllers'
     ]);
 
     app.config(function($stateProvider, $urlRouterProvider) {

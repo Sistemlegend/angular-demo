@@ -4,7 +4,8 @@
         'ngResource',
         'productServices',
         'productControllers',
-        'productDirectives'
+        'productDirectives',
+        'toolbar'
     ]);
 
 })();

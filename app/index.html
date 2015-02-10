@@ -24,6 +24,7 @@
 <!-- endbower -->
 
 <!-- inject:js -->
+<script src="scripts/toolbar/directives.js"></script>
 <script src="scripts/products/services.js"></script>
 <script src="scripts/products/directives.js"></script>
 <script src="scripts/products/controllers.js"></script>
@@ -31,9 +32,13 @@
 <!-- endinject -->
 
 <md-toolbar>
-    <h2 class="md-toolbar-tools">
-        <span>Gem Store</span>
-    </h2>
+    <div class="md-toolbar-tools">
+        <h2 class="md-toolbar-tools">
+            <span>Gem Store</span>
+        </h2>
+        <span flex></span>
+        <about-button></about-button>
+    </div>
 </md-toolbar>
 
 <md-content layout="column" layout-fill>

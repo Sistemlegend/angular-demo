@@ -27,45 +27,65 @@ gulp.task('serve', ['connect', 'watch'], function () {
     require('opn')('http://localhost:9000');
 });
 
-gulp.task('karma-imports', function(){
+gulp.task('karma-imports', function () {
+    var fs = require('fs');
     var mainBowerFiles = require('main-bower-files');
     var sources = gulp.src(['./app/scripts/*.js'], {read: false}).pipe($.angularFilesort());
 
-    return gulp.src('karma.conf.js')
-        .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.js'}), {read: false}), {
-            starttag: '// bower:js',
-            endtag: '// endbower',
-            transform: function (filepath, file, i, length) {
-                return '\'' + filepath.substr(1) + '\',';
-            }
-        }))
-        .pipe($.inject(sources, {
-            starttag: '// inject:js',
-            endtag: '// endinject',
-            transform: function (filepath, file, i, length) {
-                return '\'' + filepath.substr(1) + '\',';
-            }
-        }))
-        .pipe(gulp.dest('./'));
+    if (fs.existsSync('bower_components')) {
+        return gulp.src('karma.conf.js')
+            .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.js'}), {read: false}), {
+                starttag: '// bower:js',
+                endtag: '// endbower',
+                transform: function (filepath, file, i, length) {
+                    return '\'' + filepath.substr(1) + '\',';
+                }
+            }))
+            .pipe($.inject(sources, {
+                starttag: '// inject:js',
+                endtag: '// endinject',
+                transform: function (filepath, file, i, length) {
+                    return '\'' + filepath.substr(1) + '\',';
+                }
+            }))
+            .pipe(gulp.dest('./'));
+    } else {
+        return gulp.src('karma.conf.js')
+            .pipe($.inject(sources, {
+                starttag: '// inject:js',
+                endtag: '// endinject',
+                transform: function (filepath, file, i, length) {
+                    return '\'' + filepath.substr(1) + '\',';
+                }
+            }))
+            .pipe(gulp.dest('./'));
+    }
 });
 
 gulp.task('import', ['index-imports', 'karma-imports']);
 
-gulp.task('index-imports', function(){
+gulp.task('index-imports', function () {
+    var fs = require('fs');
     var mainBowerFiles = require('main-bower-files');
     var sources = gulp.src(['./app/scripts/*.js'], {read: false}).pipe($.angularFilesort());
 
-    return gulp.src('app/index.html')
-        .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.js'}), {read: false}), {
-            starttag: '<!-- bower:js -->',
-            endtag: '<!-- endbower -->'
-        }))
-        .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.css'}), {read: false}), {
-            starttag: '<!-- bower:css -->',
-            endtag: '<!-- endbower -->'
-        }))
-        .pipe($.inject(sources, {relative: true}))
-        .pipe(gulp.dest('./app'));
+    if (fs.existsSync('bower_components')) {
+        return gulp.src('app/index.html')
+            .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.js'}), {read: false}), {
+                starttag: '<!-- bower:js -->',
+                endtag: '<!-- endbower -->'
+            }))
+            .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.css'}), {read: false}), {
+                starttag: '<!-- bower:css -->',
+                endtag: '<!-- endbower -->'
+            }))
+            .pipe($.inject(sources, {relative: true}))
+            .pipe(gulp.dest('./app'));
+    } else {
+        return gulp.src('app/index.html')
+            .pipe($.inject(sources, {relative: true}))
+            .pipe(gulp.dest('./app'));
+    }
 });
 
 gulp.task('watch', ['connect'], function () {
@@ -82,7 +102,7 @@ gulp.task('watch', ['connect'], function () {
         'app/images/**/*'
     ]).on('change', $.livereload.changed);
 
-    gulp.watch('bower.json', ['bower-js', 'import']);
+    gulp.watch('bower.json', ['import']);
 
     gulpwatch('app/**/*.js', batch(function () {
         gulp.start('import');

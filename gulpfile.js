@@ -82,7 +82,7 @@ gulp.task('watch', ['connect'], function () {
         'app/images/**/*'
     ]).on('change', $.livereload.changed);
 
-    gulp.watch('bower.json', ['bower-js', 'import']);
+    gulp.watch('bower.json', ['import']);
 
     gulpwatch('app/**/*.js', batch(function () {
         gulp.start('import');

@@ -1,4 +1,4 @@
-describe('ProductData', function () {
+describe('ProductHeading', function () {
 
     var $compile, $rootScope;
 
@@ -17,7 +17,7 @@ describe('ProductData', function () {
             image: '',
             price: 102.95
         };
-        var element = $compile("<product-data></product-data>")($rootScope);
+        var element = $compile("<product-heading></product-heading>")($rootScope);
         $rootScope.$digest();
         expect(element.find('h3').text()).toBe($rootScope.product.name);
         expect(element.find('h4').text()).toBe('$' + $rootScope.product.price);

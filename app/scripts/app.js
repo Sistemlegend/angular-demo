@@ -91,10 +91,10 @@
         };
     });
 
-    app.directive('productData', function() {
+    app.directive('productHeading', function() {
         return {
             restric: 'E',
-            templateUrl: 'templates/product-data.html'
+            templateUrl: 'templates/product-heading.html'
         };
     });
 })();

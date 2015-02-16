@@ -70,7 +70,7 @@
 
     app.directive('productHeading', function() {
         return {
-            restric: 'E',
+            restrict: 'E',
             templateUrl: 'templates/product-heading.html',
             scope: {
                 product: '='

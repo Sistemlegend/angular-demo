@@ -1,16 +1,7 @@
 <md-list ng-controller="CartController as cartCtrl">
     <md-item ng-repeat="cartItem in cartCtrl.getCart()">
-        <md-item-content>
-            <div class="md-tile-left">
-                <img ng-src="{{cartItem.product.image}}" class="face">
-            </div>
-            <div class="md-tile-content">
-                <h3>{{cartItem.quantity}} x {{cartItem.product.name}}</h3>
-                <h4>{{cartItem.product.price | currency}} each</h4>
-            </div>
-            <div class="md-tile-right">
-                <h4>{{cartItem.quantity * cartItem.product.price | currency}}</h4>
-            </div>
-        </md-item-content>
+        <product-heading image="{{cartItem.product.image}}" name="{{cartItem.quantity}} x {{cartItem.product.name}}" price="{{cartItem.product.price}}">
+            <h4>{{cartItem.quantity * cartItem.product.price | currency}}</h4>
+        </product-heading>
     </md-item>
 </md-list>

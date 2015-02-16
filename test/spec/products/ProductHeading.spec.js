@@ -17,7 +17,7 @@ describe('ProductHeading', function () {
             image: '',
             price: 102.95
         };
-        var element = $compile("<product-heading product=product></product-heading>")($rootScope);
+        var element = $compile('<product-heading image="{{product.image}}" name="{{product.name}}" price="{{product.price}}"></product-heading>')($rootScope);
         $rootScope.$digest();
         expect(element.find('h3').text()).toBe($rootScope.product.name);
         expect(element.find('h4').text()).toBe('$' + $rootScope.product.price);

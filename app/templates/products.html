@@ -1,8 +1,10 @@
 <md-content layout="column" layout-fill>
-    <md-list ng-controller='StoreController as store'>
+    <md-list ng-controller="StoreController as store">
         <md-item ng-repeat="product in store.products" ng-hide="product.soldOut">
-            <product-heading product=product></product-heading>
-            <product-panels product=product></product-panels>
+            <product-heading image="{{product.image}}" name="{{product.name}}" price="{{product.price}}">
+                <add-to-cart-button product="product"></add-to-cart-button>
+            </product-heading>
+            <product-panels product="product"></product-panels>
         </md-item>
     </md-list>
 </md-content>

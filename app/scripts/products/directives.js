@@ -6,8 +6,11 @@
         return {
             restrict: 'E',
             templateUrl: 'templates/product-heading.html',
+            transclude: true,
             scope: {
-                product: '='
+                image: '@',
+                name: '@',
+                price: '@'
             }
         };
     });

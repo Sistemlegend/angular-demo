@@ -1,12 +1,12 @@
 <md-item-content>
     <div class="md-tile-left">
-        <img ng-src="{{product.image}}" class="face">
+        <img ng-src="{{image}}" class="face">
     </div>
     <div class="md-tile-content">
-        <h3>{{product.name}}</h3>
-        <h4>{{product.price | currency}}</h4>
+        <h3>{{name}}</h3>
+        <h4>{{price | currency}}</h4>
     </div>
     <div class="md-tile-right">
-        <add-to-cart-button product=product></add-to-cart-button>
+        <ng-transclude></ng-transclude>
     </div>
 </md-item-content>

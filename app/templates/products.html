@@ -1,7 +1,7 @@
 <md-content layout="column" layout-fill>
     <md-list ng-controller='StoreController as store'>
         <md-item ng-repeat="product in store.products" ng-hide="product.soldOut">
-            <product-data product=product></product-data>
+            <product-heading product=product></product-heading>
             <product-panels product=product></product-panels>
         </md-item>
     </md-list>

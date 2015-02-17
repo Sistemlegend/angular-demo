@@ -1,4 +1,4 @@
-<form name="reviewForm" flex="50" ng-submit="reviewForm.$valid && reviewCtrl.addReview()" novalidate>
+<form name="reviewForm" flex="50" ng-submit="reviewForm.$valid && reviewCtrl.addReview()" novalidate reset-on-submit>
     <b>Submit a review</b>
     <md-slider flex md-discrete step="1" min="1" max="5" ng-model="reviewCtrl.review.stars" required></md-slider>
     <md-input-container>

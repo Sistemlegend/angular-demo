@@ -33,7 +33,7 @@
 
         this.addReview = function () {
             this.product.reviews.push(this.review);
-            this.review = {};
+            this.review = {stars: 1};
         };
     });
 

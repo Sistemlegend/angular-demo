@@ -3,7 +3,7 @@ describe('StoreController', function () {
     var $rootScope;
     var storeController, deferredData;
 
-    beforeEach(module('productControllers'));
+    beforeEach(module('products'));
 
     beforeEach(module(function ($provide) {
         $provide.service('ProductResource', function ($q) {

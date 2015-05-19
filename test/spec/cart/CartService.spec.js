@@ -2,7 +2,7 @@ describe('CartService', function() {
 
     var CartService;
 
-    beforeEach(module('cartServices'));
+    beforeEach(module('cart'));
 
     beforeEach(inject(function (_CartService_) {
         CartService = _CartService_;

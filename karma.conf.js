@@ -4,28 +4,9 @@ module.exports = function (config) {
         basePath: '',
 
         files: [
-            // External Libraries
-            // bower:js
-            'bower_components/angular/angular.js',
-            'bower_components/angular-animate/angular-animate.js',
-            'bower_components/angular-aria/angular-aria.js',
-            'bower_components/angular-resource/angular-resource.js',
-            'bower_components/angular-ui-router/release/angular-ui-router.js',
-            'bower_components/angular-material/angular-material.js',
-            // endbower
-
-            'bower_components/angular-mocks/angular-mocks.js',
-
-            // inject:js
-            'app/scripts/toolbar/directives.js',
-            'app/scripts/products/services.js',
-            'app/scripts/products/directives.js',
-            'app/scripts/products/controllers.js',
-            'app/scripts/cart/services.js',
-            'app/scripts/cart/directives.js',
-            'app/scripts/cart/controllers.js',
             'app/scripts/app.js',
-            // endinject
+
+            'node_modules/angular-mocks/angular-mocks.js',
 
             // Tests
             'test/spec/**/*.js',
@@ -36,7 +17,11 @@ module.exports = function (config) {
 
         autoWatch: false,
 
-        frameworks: ['jasmine'],
+        frameworks: ['jasmine', 'browserify'],
+
+        browserify: {
+            debug: true
+        },
 
         browsers: [
             'Chrome'
@@ -44,6 +29,7 @@ module.exports = function (config) {
 
         plugins: [
             'karma-jasmine',
+            'karma-browserify',
             'karma-chrome-launcher',
             'karma-ng-html2js-preprocessor'
         ],
@@ -51,6 +37,7 @@ module.exports = function (config) {
         reporters: ['progress'],
 
         preprocessors: {
+            'app/scripts/**/*.js': ['browserify'],
             'app/templates/*.html': ['ng-html2js']
         },
 

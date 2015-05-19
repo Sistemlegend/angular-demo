@@ -2,7 +2,7 @@ describe('ReviewController', function () {
 
     var reviewController;
 
-    beforeEach(module('productControllers'));
+    beforeEach(module('products'));
 
     beforeEach(inject(function ($controller) {
         reviewController = $controller('ReviewController');
@@ -23,7 +23,7 @@ describe('ReviewController', function () {
         reviewController.addReview();
 
         expect(reviewController.product.reviews.length).toBe(1);
-        expect(angular.equals({},reviewController.review)).toBeTruthy();
+        expect(angular.equals({stars: 1},reviewController.review)).toBeTruthy();
     });
 
 });

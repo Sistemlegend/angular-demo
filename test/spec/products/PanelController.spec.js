@@ -2,7 +2,7 @@ describe('PanelController', function () {
 
     var panelController;
 
-    beforeEach(module('productControllers'));
+    beforeEach(module('products'));
 
     beforeEach(inject(function ($controller) {
         panelController = $controller('PanelController');

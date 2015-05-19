@@ -3,7 +3,7 @@ describe('ProductResource', function() {
     var $httpBackend;
     var ProductResource;
 
-    beforeEach(module('productServices'));
+    beforeEach(module('products'));
 
     beforeEach(inject(function(_ProductResource_, _$httpBackend_) {
         ProductResource = _ProductResource_;

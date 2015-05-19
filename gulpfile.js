@@ -4,17 +4,14 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var server;
 
-gulp.task('connect', ['import'], function () {
+gulp.task('connect', ['browserify', 'resources'], function () {
     var serveStatic = require('serve-static');
     var serveIndex = require('serve-index');
     var app = require('connect')()
         .use(require('connect-livereload')({port: 35729}))
         .use(serveStatic('.tmp'))
-        .use(serveStatic('app'))
-        // paths to bower_components should be relative to the current file
-        // e.g. in app/index.html you should use ../bower_components
-        .use('/bower_components', serveStatic('bower_components'))
-        .use(serveIndex('app'));
+        .use(serveStatic('dist'))
+        .use(serveIndex('dist'));
 
     server = require('http').createServer(app)
         .listen(9000)
@@ -27,72 +24,58 @@ gulp.task('serve', ['connect', 'watch'], function () {
     require('opn')('http://localhost:9000');
 });
 
-gulp.task('karma-imports', function(){
-   var mainBowerFiles = require('main-bower-files');
-   var sources = gulp.src(['./app/scripts/**/*.js'], {read: false}).pipe($.angularFilesort());
-
-    return gulp.src('karma.conf.js')
-        .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.js'}), {read: false}), {
-            starttag: '// bower:js',
-            endtag: '// endbower',
-            transform: function (filepath, file, i, length) {
-                return '\'' + filepath.substr(1) + '\',';
-            }
+gulp.task('browserify', function () {
+    // Single point of entry (make sure not to src ALL your files, browserify will figure it out)
+    gulp.src(['app/scripts/app.js'])
+        .pipe($.browserify({
+            insertGlobals: true,
+            debug: false
         }))
-        .pipe($.inject(sources, {
-            starttag: '// inject:js',
-            endtag: '// endinject',
-            transform: function (filepath, file, i, length) {
-                return '\'' + filepath.substr(1) + '\',';
-            }
-        }))
-        .pipe(gulp.dest('./')); 
+        // Bundle to a single file
+        .pipe($.concat('bundle.js'))
+        // Output it to our dist folder
+        .pipe(gulp.dest('dist/scripts'));
 });
 
-gulp.task('import', ['index-imports', 'karma-imports']);
+gulp.task('resources', ['index', 'templates', 'images', 'styles', 'data']);
 
-gulp.task('index-imports', function(){
-    var mainBowerFiles = require('main-bower-files');
-    var sources = gulp.src(['./app/scripts/**/*.js'], {read: true}).pipe($.angularFilesort());
+gulp.task('index', function () {
+    gulp.src('app/index.html')
+        .pipe(gulp.dest('dist/'));
+});
 
-    return gulp.src('app/index.html')
-        .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.js'}), {read: false}), {
-            starttag: '<!-- bower:js -->',
-            endtag: '<!-- endbower -->'
-        }))
-        .pipe($.inject(gulp.src(mainBowerFiles({filter: '**/*.css'}), {read: false}), {
-            starttag: '<!-- bower:css -->',
-            endtag: '<!-- endbower -->'
-        }))
-        .pipe($.inject(sources, {relative: true}))
-        .pipe($.inject(gulp.src('app/styles/**/*.css', {read:false}), {
-            starttag: '<!-- inject:css -->',
-            endtag: '<!-- endinject -->',
-            relative: true
-        }))
-        .pipe(gulp.dest('./app'));
+gulp.task('templates', function () {
+    gulp.src('app/templates/**/*')
+        .pipe(gulp.dest('dist/templates/'));
+});
+
+gulp.task('images', function () {
+    gulp.src('app/images/**/*')
+        .pipe(gulp.dest('dist/images/'));
+});
+
+gulp.task('data', function () {
+    gulp.src('app/data/**/*')
+        .pipe(gulp.dest('dist/data/'));
+});
+
+gulp.task('styles', function () {
+    gulp.src('app/styles/**/*')
+        .pipe(gulp.dest('dist/styles/'));
 });
 
 gulp.task('watch', ['connect'], function () {
     $.livereload.listen();
 
-    var gulpwatch = require('gulp-watch');
-    var batch = require('gulp-batch');
+    gulp.watch(['app/*.html'], ['index']);
+    gulp.watch(['app/templates/**/*.html'], ['templates']);
+    gulp.watch(['app/images/**/*'], ['images']);
+    gulp.watch(['app/styles/**/*.css'], ['styles']);
+    gulp.watch(['app/data/**/*'], ['data']);
 
-    // watch for changes
-    gulp.watch([
-        'app/*.html',
-        'app/styles/**/*.css',
-        'app/scripts/**/*.js',
-        'app/templates/**/*.html',
-        'app/images/**/*'
-    ]).on('change', $.livereload.changed);
+    gulp.watch(['app/**/*.js'], ['browserify']);
 
-    gulp.watch('bower.json', ['import']);
-
-    gulpwatch(['app/**/*.js','app/styles/**/*.css'], batch(function () {
-        gulp.start('import');
-    }));
+    gulp.watch('./dist/**').on('change', $.livereload.changed);
 });
 
 // Download and update the selenium driver
@@ -102,7 +85,7 @@ gulp.task('test-e2e', ['webdriver_update', 'connect'], function (cb) {
     gulp.src(['test/e2e/*.js']).pipe($.protractor.protractor({
         configFile: 'protractor.conf.js'
     })).on('error', function (e) {
-        console.log(e)
+        console.log(e);
         server.close();
     }).on('end', function () {
         server.close();
@@ -116,7 +99,7 @@ gulp.task('test-unit', function () {
     return gulp.src([])
         .pipe(karma({
             configFile: 'karma.conf.js',
-            action: 'watch'
+            action: 'run'
         }));
 });
 

@@ -3,7 +3,7 @@ describe('AddToCartController', function() {
     var addToCartController;
     var cartServiceMock;
 
-    beforeEach(module('cartControllers'));
+    beforeEach(module('cart'));
 
     beforeEach(module(function ($provide) {
         $provide.service('CartService', function() {

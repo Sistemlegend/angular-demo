@@ -2,6 +2,9 @@
 
 var gulp = require('gulp');
 var gulpsync = require('gulp-sync')(gulp);
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 var $ = require('gulp-load-plugins')();
 var server;
 
@@ -10,7 +13,6 @@ gulp.task('connect', ['dist'], function () {
     var serveIndex = require('serve-index');
     var app = require('connect')()
         .use(require('connect-livereload')({port: 35729}))
-        .use(serveStatic('.tmp'))
         .use(serveStatic('dist'))
         .use(serveIndex('dist'));
 
@@ -26,21 +28,22 @@ gulp.task('serve', ['connect', 'watch'], function () {
 });
 
 gulp.task('browserify', function () {
-    // Single point of entry (make sure not to src ALL your files, browserify will figure it out)
-    gulp.src(['app/scripts/app.js'])
-        .pipe($.browserify({
-            insertGlobals: true,
-            debug: false
-        }))
-        // Bundle to a single file
-        .pipe($.concat('bundle.js'))
-        // Output it to our dist folder
+    var b = browserify({
+        debug: false
+    });
+
+    b.add('app/scripts/app.ts');
+    b.plugin('tsify', {removeComments: true, target: 'ES5'});
+
+    return b.bundle()
+        .pipe(source('bundle.js'))
+        .pipe(buffer())
         .pipe(gulp.dest('dist/scripts'));
 });
 
-gulp.task('dist', gulpsync.sync(['clean','index','templates','images','data','styles','browserify']));
+gulp.task('dist', gulpsync.sync(['clean', 'index', 'templates', 'images', 'data', 'styles', 'browserify']));
 
-gulp.task('clean', function() {
+gulp.task('clean', function () {
     var del = require('del');
     del(['dist']);
 });
@@ -79,7 +82,7 @@ gulp.task('watch', ['connect'], function () {
     gulp.watch(['app/styles/**/*.css'], ['styles']);
     gulp.watch(['app/data/**/*'], ['data']);
 
-    gulp.watch(['app/**/*.js'], ['browserify']);
+    gulp.watch(['app/scripts/**/*.js'], ['browserify']);
 
     gulp.watch('./dist/**').on('change', $.livereload.changed);
 });

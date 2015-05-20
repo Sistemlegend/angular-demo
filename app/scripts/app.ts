@@ -1,10 +1,15 @@
-var angular = require('angular');
+///<reference path="../typings/angularjs/angular.d.ts"/>
+
+declare var require:any;
+
+import angular = require('angular');
+import products = require('./products/products')
 
 var app = angular.module('store', [
     require('angular-material'),
     require('angular-resource'),
     require('angular-ui-router'),
-    require('./products'),
+    products.name,
     require('./toolbar/directives'),
     require('./cart')
 ]);

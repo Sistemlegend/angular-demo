@@ -4,6 +4,8 @@ var gulp = require('gulp');
 var gulpsync = require('gulp-sync')(gulp);
 var browserify = require('browserify');
 var babelify = require('babelify');
+var watchify = require('watchify');
+var assign = require('lodash.assign');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var $ = require('gulp-load-plugins')();
@@ -29,20 +31,26 @@ gulp.task('serve', ['connect', 'watch'], function () {
     require('opn')('http://localhost:9000');
 });
 
-gulp.task('browserify', function () {
-    var b = browserify({
-        debug: false
-    });
+var browserifyOpts = {
+    debug: true,
+    entries: ['app/scripts/app.js'],
+    transform: [babelify.configure({
+        sourceMapRelative: './app/scripts'
+    })]
+};
+var opts = assign({}, watchify.args, browserifyOpts);
+var b = watchify(browserify(opts));
 
-    b.transform(babelify);
-
-    b.add('app/scripts/app.js');
-
+var bundle = function () {
     return b.bundle()
         .pipe(source('bundle.js'))
         .pipe(buffer())
         .pipe(gulp.dest('dist/scripts'));
-});
+};
+
+gulp.task('browserify', bundle);
+b.on('update', bundle);
+b.on('log', $.util.log);
 
 gulp.task('dist', gulpsync.sync(['clean','index','templates','images','data','styles','browserify']));
 

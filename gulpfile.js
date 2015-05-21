@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var gulpsync = require('gulp-sync')(gulp);
 var browserify = require('browserify');
+var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var $ = require('gulp-load-plugins')();
@@ -32,6 +33,8 @@ gulp.task('browserify', function () {
     var b = browserify({
         debug: false
     });
+
+    b.transform(babelify);
 
     b.add('app/scripts/app.js');
 

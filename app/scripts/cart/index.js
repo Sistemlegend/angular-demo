@@ -1,4 +1,6 @@
-var cart = require('angular').module('cart', []);
+import angular from 'angular'
+
+var cart = angular.module('cart', []);
 
 cart.service('CartService', require('./services/cart'));
 

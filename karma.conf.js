@@ -20,7 +20,10 @@ module.exports = function (config) {
         frameworks: ['jasmine', 'browserify'],
 
         browserify: {
-            debug: true
+            debug: true,
+            transform: [
+                'babelify'
+            ]
         },
 
         browsers: [

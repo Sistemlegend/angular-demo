@@ -2,6 +2,9 @@
 
 var gulp = require('gulp');
 var gulpsync = require('gulp-sync')(gulp);
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 var $ = require('gulp-load-plugins')();
 var server;
 
@@ -26,15 +29,15 @@ gulp.task('serve', ['connect', 'watch'], function () {
 });
 
 gulp.task('browserify', function () {
-    // Single point of entry (make sure not to src ALL your files, browserify will figure it out)
-    gulp.src(['app/scripts/app.js'])
-        .pipe($.browserify({
-            insertGlobals: true,
-            debug: false
-        }))
-        // Bundle to a single file
-        .pipe($.concat('bundle.js'))
-        // Output it to our dist folder
+    var b = browserify({
+        debug: false
+    });
+
+    b.add('app/scripts/app.js');
+
+    return b.bundle()
+        .pipe(source('bundle.js'))
+        .pipe(buffer())
         .pipe(gulp.dest('dist/scripts'));
 });
 

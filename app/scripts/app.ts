@@ -3,13 +3,13 @@
 declare var require:any;
 
 import angular = require('angular');
-import products = require('./products/products')
+import Products = require('./products/products');
 
 var app = angular.module('store', [
     require('angular-material'),
     require('angular-resource'),
     require('angular-ui-router'),
-    products.name,
+    Products.name,
     require('./toolbar/directives'),
     require('./cart')
 ]);

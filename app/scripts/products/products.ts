@@ -2,9 +2,11 @@
 
 declare var require:any;
 
+import QueryProduct = require('./services/queryProduct')
+
 var products = angular.module('products',[require('angular-resource')]);
 
-products.service('ProductResource', require('./services/queryProducts'));
+products.service('ProductResource', ['$resource', QueryProduct]);
 
 products.controller('StoreController', require('./controllers/store'));
 products.controller('PanelController', require('./controllers/tab'));

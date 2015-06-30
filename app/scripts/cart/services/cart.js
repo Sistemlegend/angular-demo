@@ -1,20 +1,24 @@
-module.exports = function () {
+class Cart {
 
-    var cart = {};
+    constructor() {
+        this.cart = {};
+    }
 
-    this.addToCart = function (product) {
-        if (angular.isUndefined(cart[product.name])) {
-            cart[product.name] = {product: product, quantity: 0};
+    addToCart(product) {
+        if (angular.isUndefined(this.cart[product.name])) {
+            this.cart[product.name] = {product: product, quantity: 0};
         }
-        cart[product.name].quantity++;
-    };
+        this.cart[product.name].quantity++;
+    }
 
-    this.getCart = function () {
+    getCart() {
         var cartContent = [];
-        for (var key in cart) {
-            cartContent.push(cart[key]);
+        for (var key in this.cart) {
+            cartContent.push(this.cart[key]);
         }
         return cartContent;
-    };
+    }
 
-};
+}
+
+export {Cart}

@@ -2,9 +2,12 @@ import angular from 'angular'
 
 var cart = angular.module('cart', []);
 
-cart.service('CartService', require('./services/cart'));
+import {Cart} from './services/cart'
+import {AddToCartController} from './controllers/addToCart'
 
-cart.controller('AddToCartController', require('./controllers/addToCart'));
+cart.service('CartService', Cart);
+
+cart.controller('AddToCartController', AddToCartController);
 cart.controller('CartController', require('./controllers/getCart'));
 
 cart.directive('addToCartButton', require('./directives/addToCartButton'));

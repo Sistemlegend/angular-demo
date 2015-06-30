@@ -1,9 +1,13 @@
-module.exports = function (CartService) {
+class AddToCartController {
 
-    this.product;
+    constructor(CartService) {
+        this.CartService = CartService;
+    }
 
-    this.addToCart = function () {
-        CartService.addToCart(this.product);
-    };
+    addToCart() {
+        this.CartService.addToCart(this.product);
+    }
 
-};
+}
+
+export {AddToCartController}

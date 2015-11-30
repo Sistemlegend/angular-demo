@@ -23,7 +23,7 @@ describe('ReviewController', function () {
         reviewController.addReview();
 
         expect(reviewController.product.reviews.length).toBe(1);
-        expect(angular.equals({},reviewController.review)).toBeTruthy();
+        expect(angular.equals({stars: 1},reviewController.review)).toBeTruthy();
     });
 
 });
